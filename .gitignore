@@ -30,3 +30,5 @@ Thumbs.db
 assets/images/Agentes/
 assets/images/
 assets/img/
+
+.vscode/sftp.json
