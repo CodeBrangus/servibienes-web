@@ -1,0 +1,37 @@
+[
+  {"id":"constructora",
+    "label":"Constructora"
+  },
+  {
+    "id": "ofertas",
+    "label": "Ofertas por Categoría"
+  },
+  {
+    "id": "formulario",
+    "label": "Desea vender o alquilar su propiedad"
+  },
+  {
+    "id": "destacados",
+    "label": "Nuestros Proyectos Destacados"
+  },
+  {
+    "id": "proyectos",
+    "label": "Proyectos"
+  },
+  {
+    "id": "videos",
+    "label": "Videos de Nuestros Proyectos"
+  },
+  {
+    "id": "catalogo",
+    "label": "Catálogo de Propiedades"
+  },
+  {
+    "id": "agentes",
+    "label": "Contáctanos"
+  },
+  {
+    "id": "identidad",
+    "label": "Nosotros"
+  }
+]

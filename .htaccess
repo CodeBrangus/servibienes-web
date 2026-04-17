@@ -1,0 +1,8 @@
+# Configuración
+DirectoryIndex index.php propiedades.php inicio.php
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+# Esto permite que las URLs de tu código sigan funcionando sin interferencia
+</IfModule>
