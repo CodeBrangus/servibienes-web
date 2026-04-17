@@ -26,3 +26,7 @@ wpBackup/
 # Sistema operativo
 .DS_Store
 Thumbs.db
+
+assets/images/Agentes/
+assets/images/
+assets/img/
