@@ -3720,7 +3720,7 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in']) {
 
         function checkAdminPassword() {
             const password = document.getElementById('adminPassword').value;
-            if (password === '<?php echo ADMIN_PASSWORD; ?>') {
+            if (password === '') {
                 closeAdminLogin();
                 openAdminPanel();
             } else {
