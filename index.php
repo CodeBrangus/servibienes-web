@@ -8,14 +8,14 @@ $error = $_GET['error'] ?? '';
 
 // Obtener datos de la base de datos - ORDENAR POR id EN VEZ DE created_at
 $gallery = dbSelect('gallery', '*', 'is_active = 1', [], 'display_order, id DESC', '130');
-$projectsAll = dbSelect('projects', '*', 'is_active = 1', [], 'display_order, id DESC', '2000');
-$featuredProjects = dbSelect('featured_projects', '*', 'is_active = 1', [], 'display_order, id DESC', '2000');
-$videos = dbSelect('videos', '*', 'is_active = 1', [], 'display_order, id DESC', '1000');
+$projectsAll = dbSelect('projects', '*', 'is_active = 1', [], 'display_order, id DESC', '500');
+$featuredProjects = dbSelect('featured_projects', '*', 'is_active = 1', [], 'display_order, id DESC', '50');
+$videos = dbSelect('videos', '*', 'is_active = 1', [], 'display_order, id DESC', '20');
 $events = dbSelect('events', '*', 'is_active = 1', [], 'display_order ASC, id DESC');
 $agents = dbSelect('agents', '*', 'is_active = 1', [], 'display_order, name ASC');
-$properties_venta = dbSelect('properties', '*', 'category = "venta" AND is_active = 1', [], 'id DESC', '500');
-$properties_alquiler = dbSelect('properties', '*', 'category = "alquiler" AND is_active = 1', [], 'id DESC', '500');
-$properties_anticretico = dbSelect('properties', '*', 'category = "anticretico" AND is_active = 1', [], 'id DESC', '500');
+$properties_venta = dbSelect('properties', '*', 'category = "venta" AND is_active = 1', [], 'id DESC', '8');
+$properties_alquiler = dbSelect('properties', '*', 'category = "alquiler" AND is_active = 1', [], 'id DESC', '8');
+$properties_anticretico = dbSelect('properties', '*', 'category = "anticretico" AND is_active = 1', [], 'id DESC', '8');
 
 // Contadores para estadísticas
 $total_properties = count($properties_venta) + count($properties_alquiler) + count($properties_anticretico);
@@ -2672,129 +2672,7 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in']) {
         </script>
     <?php endif; ?>
 
-    <!-- ========== PANEL DE ADMINISTRADOR ========== -->
-    <?php if (false): ?>
-        <div class="admin-panel">
-            <button class="admin-btn" onclick="openAdminLogin()">
-                <i class="fas fa-user-shield"></i> Admin
-            </button>
-        </div>
 
-        <div class="admin-login" id="adminLogin">
-            <div class="login-box">
-                <h3>Panel de Administración</h3>
-                <input type="password" id="adminPassword" placeholder="Contraseña" autocomplete="off">
-                <button onclick="checkAdminPassword()">Acceder</button>
-                <p style="margin-top: 15px; text-align: center; font-size: 12px; color: var(--muted);">
-                    Contraseña: <?php echo ADMIN_PASSWORD; ?>
-                </p>
-            </div>
-        </div>
-
-        <div class="admin-content" id="adminContent">
-            <div class="admin-header">
-                <h2>Panel de Administración - Servibienes</h2>
-                <button class="btn-admin btn-delete" onclick="closeAdmin()">
-                    <i class="fas fa-times"></i> Cerrar
-                </button>
-            </div>
-
-            <div class="admin-section">
-                <h3>Formularios Recibidos de Clientes</h3>
-                <div class="admin-grid" id="clientSubmissions">
-                    <?php if (!empty($client_submissions)): ?>
-                        <?php foreach ($client_submissions as $submission): ?>
-                            <div class="submission-card">
-                                <h4><?php echo htmlspecialchars($submission['name']); ?></h4>
-                                <p><strong>Teléfono:</strong> <?php echo htmlspecialchars($submission['phone']); ?></p>
-                                <p><strong>Email:</strong> <?php echo htmlspecialchars($submission['email']); ?></p>
-                                <p><strong>Operación:</strong> <?php echo htmlspecialchars($submission['operation']); ?></p>
-                                <p><strong>Tipo:</strong> <?php echo htmlspecialchars($submission['subcategory']); ?></p>
-                                <p><strong>Ubicación:</strong> <?php echo htmlspecialchars($submission['location']); ?></p>
-                                <p><strong>Precio:</strong> $<?php echo htmlspecialchars($submission['price']); ?> USD</p>
-                                <p><strong>Fecha:</strong> <?php echo date('d/m/Y H:i', strtotime($submission['created_at'])); ?></p>
-
-                                <?php if (!empty($submission['images'])):
-                                    $images = json_decode($submission['images'], true); ?>
-                                    <div class="submission-images">
-                                        <?php if (is_array($images)): ?>
-                                            <?php foreach (array_slice($images, 0, 3) as $img): ?>
-                                                <img src="<?php echo htmlspecialchars($img); ?>" alt="Imagen propiedad">
-                                            <?php endforeach; ?>
-                                            <?php if (count($images) > 3): ?>
-                                                <span>+<?php echo count($images) - 3; ?></span>
-                                            <?php endif; ?>
-                                        <?php endif; ?>
-                                    </div>
-                                <?php endif; ?>
-
-                                <div class="admin-controls">
-                                    <button class="btn-admin btn-view" onclick="viewSubmission(<?php echo $submission['id']; ?>)">
-                                        <i class="fas fa-eye"></i> Ver
-                                    </button>
-                                    <button class="btn-admin btn-delete" onclick="deleteSubmission(<?php echo $submission['id']; ?>)">
-                                        <i class="fas fa-trash"></i> Eliminar
-                                    </button>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <p style="text-align: center; color: var(--muted); grid-column: 1/-1;">No hay formularios recibidos</p>
-                    <?php endif; ?>
-                </div>
-            </div>
-
-            <div class="admin-section">
-                <h3>Gestión de Propiedades</h3>
-                <div id="adminPropertiesList">
-                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
-                        <?php
-                        $all_properties = array_merge($properties_venta, $properties_alquiler, $properties_anticretico);
-                        if (!empty($all_properties)):
-                            foreach ($all_properties as $property): ?>
-                                <div class="submission-card">
-                                    <h4><?php echo htmlspecialchars($property['title']); ?></h4>
-                                    <p><strong>Categoría:</strong> <?php echo htmlspecialchars($property['category']); ?></p>
-                                    <p><strong>Precio:</strong> <?php echo htmlspecialchars($property['price']); ?></p>
-                                    <p><strong>Ubicación:</strong> <?php echo htmlspecialchars($property['location']); ?></p>
-                                    <p><strong>Tipo:</strong> <?php echo htmlspecialchars($property['subcategory']); ?></p>
-                                    <div class="admin-controls">
-                                        <button class="btn-admin btn-delete" onclick="deleteAdminProperty(<?php echo $property['id']; ?>)">
-                                            <i class="fas fa-trash"></i> Eliminar
-                                        </button>
-                                    </div>
-                                </div>
-                            <?php endforeach;
-                        else: ?>
-                            <p style="text-align: center; color: var(--muted); grid-column: 1/-1;">No hay propiedades registradas</p>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
-
-            <div class="admin-section">
-                <h3>Estadísticas</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
-                    <div class="stat-card">
-                        <div class="stat-number"><?php echo count($client_submissions); ?></div>
-                        <div class="stat-label">Formularios Recibidos</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number"><?php echo $total_properties; ?></div>
-                        <div class="stat-label">Propiedades Activas</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number"><?php echo count($videos); ?></div>
-                        <div class="stat-label">Videos Subidos</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number"><?php echo count($gallery); ?></div>
-                        <div class="stat-label">Imágenes en Galería</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <?php endif; ?>
     <!-- Welcome Overlay -->
     <div class="welcome-overlay" id="welcomeOverlay">
         <div class="welcome-logo">
