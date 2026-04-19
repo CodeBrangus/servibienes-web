@@ -792,7 +792,7 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in']) {
 
         .hero-dropmenu {
             position: absolute;
-            top: calc(100% + 8px);
+            top: calc(100%);
             left: 0;
             min-width: 260px;
             background: #fff;
