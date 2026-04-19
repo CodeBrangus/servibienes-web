@@ -3,63 +3,153 @@ require_once '../config.php';
 requireAdmin();
 
 // Rutas con compatibilidad (algunos hostings usan /imagenes/...)
-function pickFirstExisting($candidates){
-  foreach($candidates as $c){
+function pickFirstExisting($candidates)
+{
+  foreach ($candidates as $c) {
     if (file_exists($c['abs'])) return $c;
   }
   return $candidates[0];
 }
 
 $logo = pickFirstExisting([
-  ['rel'=>'imagenes/portada/logotipo.png', 'abs'=>BASE_PATH.'/imagenes/portada/logotipo.png'],
-  ['rel'=>'imagenes/portada/logo.png',     'abs'=>BASE_PATH.'/imagenes/portada/logo.png'],
-  ['rel'=>'assets/images/logo.png',        'abs'=>BASE_PATH.'/assets/images/logo.png'],
+  ['rel' => 'imagenes/portada/logotipo.png', 'abs' => BASE_PATH . '/imagenes/portada/logotipo.png'],
+  ['rel' => 'imagenes/portada/logo.png',     'abs' => BASE_PATH . '/imagenes/portada/logo.png'],
+  ['rel' => 'assets/images/logo.png',        'abs' => BASE_PATH . '/assets/images/logo.png'],
 ]);
 
 $hero = pickFirstExisting([
-  ['rel'=>'imagenes/portada/portada.jpg', 'abs'=>BASE_PATH.'/imagenes/portada/portada.jpg'],
-  ['rel'=>'imagenes/portada/heroe.jpg',   'abs'=>BASE_PATH.'/imagenes/portada/heroe.jpg'],
-  ['rel'=>'assets/images/portada.jpg',    'abs'=>BASE_PATH.'/assets/images/portada.jpg'],
-  ['rel'=>'assets/images/hero.jpg',       'abs'=>BASE_PATH.'/assets/images/hero.jpg'],
+  ['rel' => 'imagenes/portada/portada.jpg', 'abs' => BASE_PATH . '/imagenes/portada/portada.jpg'],
+  ['rel' => 'imagenes/portada/heroe.jpg',   'abs' => BASE_PATH . '/imagenes/portada/heroe.jpg'],
+  ['rel' => 'assets/images/portada.jpg',    'abs' => BASE_PATH . '/assets/images/portada.jpg'],
+  ['rel' => 'assets/images/hero.jpg',       'abs' => BASE_PATH . '/assets/images/hero.jpg'],
 ]);
 
 $rep  = pickFirstExisting([
-  ['rel'=>'imagenes/agentes/representante.jpg', 'abs'=>BASE_PATH.'/imagenes/agentes/representante.jpg'],
-  ['rel'=>'assets/uploads/agents/representante.jpg', 'abs'=>BASE_PATH.'/assets/uploads/agents/representante.jpg'],
+  ['rel' => 'imagenes/agentes/representante.jpg', 'abs' => BASE_PATH . '/imagenes/agentes/representante.jpg'],
+  ['rel' => 'assets/uploads/agents/representante.jpg', 'abs' => BASE_PATH . '/assets/uploads/agents/representante.jpg'],
 ]);
 
 $logoRel = $logo['rel'];
+$logoAbs = $logo['abs'];
 $heroRel = $hero['rel'];
+$heroAbs = $hero['abs'];
 $repRel  = $rep['rel'];
+$repAbs  = $rep['abs'];
 
 $success = $_GET['success'] ?? '';
 $error   = $_GET['error'] ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ajustes - Panel Admin</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body{font-family:Arial,Helvetica,sans-serif;background:#f5f7fa;margin:0;color:#333;}
-    .header{background:#0b2340;color:#fff;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;}
-    .header a{color:#fff;text-decoration:none;opacity:.9}
-    .wrap{max-width:1100px;margin:0 auto;padding:22px;}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px;}
-    .card{background:#fff;border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.06);padding:18px;}
-    .card h2{margin:0 0 10px;font-size:18px;color:#0b2340;}
-    .preview{display:flex;gap:14px;align-items:center;}
-    .preview img{max-width:140px;max-height:140px;border-radius:12px;border:1px solid #eee;background:#fafafa}
-    .btn{display:inline-block;background:#0f6fb1;color:#fff;padding:10px 14px;border-radius:10px;cursor:pointer;border:none;text-decoration:none;font-weight:600}
-    .muted{color:#666;font-size:13px}
-    input[type=file]{display:none}
-    .msg{padding:12px 14px;border-radius:10px;margin-bottom:14px}
-    .ok{background:#d4edda;color:#155724;border:1px solid #c3e6cb}
-    .bad{background:#f8d7da;color:#721c24;border:1px solid #f5c6cb}
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      color: #333;
+    }
+
+    .header {
+      background: #0b2340;
+      color: #fff;
+      padding: 18px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header a {
+      color: #fff;
+      text-decoration: none;
+      opacity: .9
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 22px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, .06);
+      padding: 18px;
+    }
+
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      color: #0b2340;
+    }
+
+    .preview {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .preview img {
+      max-width: 140px;
+      max-height: 140px;
+      border-radius: 12px;
+      border: 1px solid #eee;
+      background: #fafafa
+    }
+
+    .btn {
+      display: inline-block;
+      background: #0f6fb1;
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      font-weight: 600
+    }
+
+    .muted {
+      color: #666;
+      font-size: 13px
+    }
+
+    input[type=file] {
+      display: none
+    }
+
+    .msg {
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin-bottom: 14px
+    }
+
+    .ok {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb
+    }
+
+    .bad {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb
+    }
   </style>
 </head>
+
 <body>
   <div class="header">
     <div><i class="fas fa-gear"></i> Ajustes</div>
@@ -147,4 +237,5 @@ $error   = $_GET['error'] ?? '';
     </div>
   </div>
 </body>
+
 </html>
