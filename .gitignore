@@ -1,0 +1,34 @@
+# Credenciales y configuración sensible
+config.php
+
+# Base de datos
+database.sql
+
+# Logs y errores
+error_log
+*.log
+
+# Archivos temporales y de respaldo
+*.bak
+index.php-bak.bak
+index_wp_OLD.php
+debug.php
+emergency-fix.php
+
+# Archivos subidos por usuarios (pesan mucho, no van en Git)
+subidas/
+imagenes/
+assets/uploads/
+
+# WordPress backup
+wpBackup/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+assets/images/Agentes/
+assets/images/
+assets/img/
+
+.vscode/sftp.json
