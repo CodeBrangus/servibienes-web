@@ -804,7 +804,9 @@ header {
 .project-block-thumbs{overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; padding-bottom:6px;}
 .thumb-track{display:flex;gap:12px;align-items:center; scroll-snap-type:x mandatory;}
 .thumb-track img{flex:0 0 auto; width:240px; height:240px; object-fit:contain; border-radius:16px; background:rgba(0,0,0,.18); border:1px solid rgba(255,255,255,.12); scroll-snap-align:start;}
-  100%{transform:translateX(-50%)}
+@keyframes scrollLeft {
+0%{transform:translateX(0)}
+100%{transform:translateX(-50%)}
 }
 /* Duplicamos visualmente para loop (JS mejora). Si no hay duplicación, se mantiene suave. */
 
