@@ -242,6 +242,7 @@ header {
     font-size: 28px;
     background: linear-gradient(135deg, var(--sky), var(--text));
     -webkit-background-clip: text;
+        background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 700;
 }
