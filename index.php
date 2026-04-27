@@ -2628,6 +2628,202 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in']) {
         }
     </style>
 </head>
+<!-- LIGHTBOX HTML -->
+<div id="lightbox-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Visor de imagen"
+    tabindex="-1">
+    <button id="lb-close" aria-label="Cerrar lightbox">&#x2715;</button>
+    <button class="lb-arrow" id="lb-prev" aria-label="Imagen anterior">&#8249;</button>
+    <img id="lb-img" src="" alt="" />
+    <button class="lb-arrow" id="lb-next" aria-label="Imagen siguiente">&#8250;</button>
+    <div id="lb-caption" aria-live="polite"></div>
+    <div id="lb-counter" aria-live="polite"></div>
+</div>
+
+<script>
+    (function() {
+        'use strict';
+
+        // ── Estado ──────────────────────────────────────────────
+        let gallery = []; // [{src, alt, caption}]
+        let current = 0;
+        let lastFocus = null;
+
+        const overlay = document.getElementById('lightbox-overlay');
+        const lbImg = document.getElementById('lb-img');
+        const lbPrev = document.getElementById('lb-prev');
+        const lbNext = document.getElementById('lb-next');
+        const lbClose = document.getElementById('lb-close');
+        const lbCounter = document.getElementById('lb-counter');
+        const lbCaption = document.getElementById('lb-caption');
+
+        // ── Recolectar imágenes de ambas secciones ───────────────
+        function buildGallery(containerSelector) {
+            return Array.from(
+                document.querySelectorAll(containerSelector + ' img.lb-trigger')
+            ).map(img => ({
+                src: img.dataset.lbSrc || img.src,
+                alt: img.alt || 'Imagen del proyecto',
+                caption: img.dataset.lbCaption || img.alt || ''
+            }));
+        }
+
+        // ── Abrir ────────────────────────────────────────────────
+        function openLightbox(images, index) {
+            gallery = images;
+            current = index;
+            lastFocus = document.activeElement;
+
+            renderImage(current);
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            overlay.focus();
+        }
+
+        // ── Cerrar ───────────────────────────────────────────────
+        function closeLightbox() {
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+            if (lastFocus) lastFocus.focus();
+        }
+
+        // ── Renderizar imagen con preload ─────────────────────────
+        function renderImage(idx) {
+            const item = gallery[idx];
+            lbImg.classList.add('loading');
+
+            const tmp = new Image();
+            tmp.onload = () => {
+                lbImg.src = item.src;
+                lbImg.alt = item.alt;
+                lbImg.classList.remove('loading');
+            };
+            tmp.src = item.src;
+
+            // Caption y contador
+            lbCaption.textContent = item.caption || '';
+            lbCounter.textContent = gallery.length > 1 ?
+                `${idx + 1} / ${gallery.length}` :
+                '';
+
+            // Arrows
+            lbPrev.disabled = idx === 0;
+            lbNext.disabled = idx === gallery.length - 1;
+
+            // Preload adyacente
+            if (idx + 1 < gallery.length) {
+                const pre = new Image();
+                pre.src = gallery[idx + 1].src;
+            }
+            if (idx - 1 >= 0) {
+                const pre = new Image();
+                pre.src = gallery[idx - 1].src;
+            }
+        }
+
+        // ── Navegación ───────────────────────────────────────────
+        function navigate(dir) {
+            const next = current + dir;
+            if (next >= 0 && next < gallery.length) {
+                current = next;
+                renderImage(current);
+            }
+        }
+
+        // ── Eventos botones ──────────────────────────────────────
+        lbClose.addEventListener('click', closeLightbox);
+        lbPrev.addEventListener('click', () => navigate(-1));
+        lbNext.addEventListener('click', () => navigate(+1));
+
+        // Cerrar al click en fondo
+        overlay.addEventListener('click', function(e) {
+            if (e.target === overlay) closeLightbox();
+        });
+
+        // ── Teclado ──────────────────────────────────────────────
+        document.addEventListener('keydown', function(e) {
+            if (!overlay.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navigate(-1);
+            if (e.key === 'ArrowRight') navigate(+1);
+
+            // Focus trap
+            if (e.key === 'Tab') {
+                const focusable = overlay.querySelectorAll(
+                    'button:not([disabled])'
+                );
+                const first = focusable[0];
+                const last = focusable[focusable.length - 1];
+                if (e.shiftKey && document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                } else if (!e.shiftKey && document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
+            }
+        });
+
+        // ── Touch / Swipe ────────────────────────────────────────
+        let touchStartX = 0;
+        overlay.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].clientX;
+        }, {
+            passive: true
+        });
+        overlay.addEventListener('touchend', e => {
+            const diff = touchStartX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) navigate(diff > 0 ? 1 : -1);
+        }, {
+            passive: true
+        });
+
+        // ── Inicializar triggers ─────────────────────────────────
+        function initTriggers() {
+            // Sección 1: Carrusel "Proyectos Destacados"
+            const featuredImgs = Array.from(
+                document.querySelectorAll('.projects-track img')
+            );
+            featuredImgs.forEach((img, i) => {
+                img.classList.add('lb-trigger');
+                img.addEventListener('click', () => {
+                    const imgs = featuredImgs.map(im => ({
+                        src: im.dataset.lbSrc || im.src,
+                        alt: im.alt || 'Proyecto',
+                        caption: im.alt || ''
+                    }));
+                    openLightbox(imgs, i);
+                });
+            });
+
+            // Sección 2: Bloques por proyecto
+            document.querySelectorAll('.project-block-carousel').forEach(carousel => {
+                const imgs = Array.from(carousel.querySelectorAll('img'));
+                imgs.forEach((img, i) => {
+                    img.classList.add('lb-trigger');
+                    img.addEventListener('click', () => {
+                        const imgsData = imgs.map(im => ({
+                            src: im.dataset.lbSrc || im.src,
+                            alt: im.alt || 'Proyecto',
+                            caption: im.alt || ''
+                        }));
+                        openLightbox(imgsData, i);
+                    });
+                });
+            });
+        }
+
+        // Ejecutar cuando el DOM esté listo
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initTriggers);
+        } else {
+            initTriggers();
+        }
+
+    })();
+</script>
 
 <body>
     <?php if ($success): ?>

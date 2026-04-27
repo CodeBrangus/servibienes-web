@@ -1200,3 +1200,118 @@ header {
     }
 }
 }
+/* ========== LIGHTBOX ========== */
+#lightbox-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: rgba(0, 0, 0, 0.92);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+#lightbox-overlay.active {
+    display: flex;
+    animation: lb-fade-in 0.25s ease;
+}
+
+@keyframes lb-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #lightbox-overlay.active { animation: none; }
+    #lb-img { transition: none !important; }
+}
+
+#lb-img {
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+    transition: opacity 0.2s ease;
+    background: rgba(255,255,255,0.04);
+    display: block;
+}
+
+#lb-img.loading { opacity: 0.3; }
+
+#lb-close {
+    position: fixed;
+    top: 18px;
+    right: 22px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    font-size: 24px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    z-index: 100001;
+}
+#lb-close:hover { background: rgba(255,255,255,0.25); }
+
+.lb-arrow {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    font-size: 22px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    z-index: 100001;
+}
+.lb-arrow:hover { background: rgba(255,255,255,0.28); }
+.lb-arrow:disabled { opacity: 0.2; cursor: default; }
+
+#lb-prev { left: 16px; }
+#lb-next { right: 16px; }
+
+#lb-counter {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.7);
+    font-size: 14px;
+    font-family: 'Roboto', Arial, sans-serif;
+    background: rgba(0,0,0,0.4);
+    padding: 6px 16px;
+    border-radius: 999px;
+    z-index: 100001;
+    pointer-events: none;
+}
+
+#lb-caption {
+    position: fixed;
+    bottom: 56px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.85);
+    font-size: 15px;
+    font-family: 'Roboto', Arial, sans-serif;
+    text-align: center;
+    max-width: 600px;
+    z-index: 100001;
+    pointer-events: none;
+}
+
+/* Cursor pointer en imágenes con lightbox */
+.lb-trigger { cursor: zoom-in !important; }
