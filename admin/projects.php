@@ -299,7 +299,7 @@ foreach ($projects as $p) {
         ?>
 
         <?php foreach ($projectNames as $pn): ?>
-            <h3 style="margin:22px 0 10px; color:#0b2340;">PROYECTO: <?php echo htmlspecialchars($pn); ?> (<?php echo isset($grouped[$pn]) ? count($grouped[$pn]) : 0; ?>)</h3>
+            <h3 style="margin:22px 0 10px; color:#0b2340; white-space:normal; overflow:visible; word-break:break-word; padding:0 10px;">PROYECTO: <?php echo htmlspecialchars($pn); ?> (<?php echo isset($grouped[$pn]) ? count($grouped[$pn]) : 0; ?>)</h3>
             <?php if (empty($grouped[$pn])): ?>
                 <div class="message">Aún no hay imágenes para este proyecto.</div>
             <?php else: ?>
