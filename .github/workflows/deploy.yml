@@ -1,0 +1,15 @@
+name: Deploy to production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger webhook
+        run: |
+          curl -f -s -o /dev/null \
+            "https://servibienessrl.com/gitdeploy.php?token=servibienes2026deploy"
