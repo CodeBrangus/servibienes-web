@@ -32,3 +32,8 @@ assets/images/
 assets/img/
 
 .vscode/sftp.json
+
+.vscode/
+
+htaccess
+.well-known/
