@@ -4,12 +4,11 @@
 // ============================================================
 $whatsapp = "59177657257";
 
-// Thumbnails de Vimeo
 $videos = [
-  ["archivo" => "CapacitacionMensualWp.mp4", "formato" => "vertical"],
-  ["archivo" => "AsesoresMasterWp.mp4", "formato" => "vertical"],
-  ["archivo" => "CapacitacionWp.mp4", "formato" => "vertical"],
-  ["archivo" => "ComiunityDonEdgarWp.mp4", "formato" => "horizontal"],
+  ["archivo" => "CapacitacionMensualWp.mp4", "titulo" => "Capacitacion mensual", "formato" => "vertical"],
+  ["archivo" => "AsesoresMasterWp.mp4",      "titulo" => "Asesores master",      "formato" => "vertical"],
+  ["archivo" => "CapacitacionWp.mp4",        "titulo" => "Capacitacion",         "formato" => "vertical"],
+  ["archivo" => "ComiunityDonEdgarWp.mp4",   "titulo" => "",   "formato" => "horizontal"],
 ];
 ?>
 <!DOCTYPE html>
