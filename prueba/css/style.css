@@ -463,10 +463,17 @@ a {
 .video-thumb-wrap {
   position: relative;
   width: 100%;
-  padding-top: 56.25%;        /* ratio 16:9 */
   border-radius: 12px;
   overflow: hidden;
   background: #000;
+}
+
+.slide-video.formato-horizontal .video-thumb-wrap {
+  aspect-ratio: 16 / 9;
+}
+
+.slide-video.formato-vertical .video-thumb-wrap {
+  aspect-ratio: 9 / 16;
 }
 
 .video-thumb-iframe {
@@ -700,4 +707,8 @@ a {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.slide-video.formato-vertical {
+  width: 18%;
 }

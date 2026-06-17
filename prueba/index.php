@@ -8,7 +8,7 @@ $videos = [
   ["archivo" => "CapacitacionMensualWp.mp4", "titulo" => "Capacitacion mensual", "formato" => "vertical"],
   ["archivo" => "AsesoresMasterWp.mp4",      "titulo" => "Asesores master",      "formato" => "vertical"],
   ["archivo" => "CapacitacionWp.mp4",        "titulo" => "Capacitacion",         "formato" => "vertical"],
-  ["archivo" => "ComiunityDonEdgarWp.mp4",   "titulo" => "",   "formato" => "horizontal"],
+  ["archivo" => "ComiunityDonEdgarWp.mp4",   "titulo" => "Comunity don edgar",   "formato" => "horizontal"],
 ];
 ?>
 <!DOCTYPE html>
@@ -157,7 +157,7 @@ $videos = [
       <button class="carrusel-btn prev" onclick="moverCarruselVideos(-1)">&#8249;</button>
       <div class="carrusel-track" id="track-videos">
         <?php foreach ($videos as $i => $v): ?>
-          <div class="slide slide-video" onclick="abrirVideoLightbox(<?= $i ?>)">
+          <div class="slide slide-video formato-<?= $v['formato'] ?>" onclick="abrirVideoLightbox(<?= $i ?>)">
             <div class="video-thumb-wrap">
               <video src="assets/videos/<?= $v['archivo'] ?>" class="video-thumb-img" preload="metadata" muted></video>
               <div class="video-play-overlay">
