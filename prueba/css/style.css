@@ -694,3 +694,10 @@ a {
   color: #17469c;
   line-height: 1.5;
 }
+
+.proyecto-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}

@@ -222,10 +222,10 @@ unset($v);
     <!-- 1. Community Alto Norte — imagen izq, texto der -->
     <div class="proyecto-card">
       <div class="proyecto-media">
-        <div class="proyecto-video-placeholder">
-          <span>▶ Video próximamente</span>
-          <p>Community Alto Norte</p>
-        </div>
+        <video controls preload="metadata" class="proyecto-video">
+          <source src="assets/videos/ComiunityWp.mp4" type="video/mp4">
+          Tu navegador no soporta el elemento de video.
+        </video>
       </div>
       <div class="proyecto-info">
         <div class="proyecto-badge turquesa">Community Alto Norte</div>
@@ -242,20 +242,20 @@ unset($v);
         <p>Espacios diseñados para recargar energía, compartir y construir comunidad. Ambientes versátiles que se adaptan a distintos estilos de vida y necesidades.</p>
       </div>
       <div class="proyecto-media">
-        <div class="proyecto-video-placeholder">
-          <span>▶ Video próximamente</span>
-          <p>Raizant Blend</p>
-        </div>
+        <video controls preload="metadata" class="proyecto-video">
+          <source src="assets/videos/RaizantWp.mp4" type="video/mp4">
+          Tu navegador no soporta el elemento de video.
+        </video>
       </div>
     </div>
 
     <!-- 3. Vistara — imagen izq, texto der -->
     <div class="proyecto-card">
       <div class="proyecto-media">
-        <div class="proyecto-video-placeholder">
-          <span>▶ Video próximamente</span>
-          <p>Vistara Equipetrol</p>
-        </div>
+        <video controls preload="metadata" class="proyecto-video">
+          <source src="assets/videos/VistaraWp.mp4" type="video/mp4">
+          Tu navegador no soporta el elemento de video.
+        </video>
       </div>
       <div class="proyecto-info">
         <div class="proyecto-badge turquesa">VISTARA</div>
@@ -280,10 +280,10 @@ unset($v);
     <!-- 5. Kerana — imagen izq, texto der -->
     <div class="proyecto-card">
       <div class="proyecto-media">
-        <div class="proyecto-video-placeholder">
-          <span>▶ Video próximamente</span>
-          <p>Kerana II</p>
-        </div>
+        <video controls preload="metadata" class="proyecto-video">
+          <source src="assets/videos/KeranaII.mp4" type="video/mp4">
+          Tu navegador no soporta el elemento de video.
+        </video>
       </div>
       <div class="proyecto-info">
         <div class="proyecto-badge turquesa">KERANA</div>
