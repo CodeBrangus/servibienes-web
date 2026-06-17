@@ -158,10 +158,10 @@ document.addEventListener('keydown', e => {
 // LIGHTBOX — Videos Vimeo
 // ============================================================
 const videosData = [
-  { id: "1195840788", titulo: "Capacitacion mensual", formato: "vertical" },
-  { id: "1195840789", titulo: "Asesores master",      formato: "vertical" },
-  { id: "1195840790", titulo: "Capacitacion",         formato: "vertical" },
-  { id: "1195840791", titulo: "Comunity don edgar",   formato: "vertical" },
+  { archivo: "CapacitacionMensualWp.mp4", titulo: "Capacitacion mensual", formato: "vertical" },
+  { archivo: "AsesoresMasterWp.mp4",      titulo: "Asesores master",      formato: "vertical" },
+  { archivo: "CapacitacionWp.mp4",        titulo: "Capacitacion",         formato: "vertical" },
+  { archivo: "ComiunityDonEdgarWp.mp4",   titulo: "Comunity don edgar",   formato: "horizontal" },
 ];
 
 let videoIndiceActual = 0;
@@ -175,7 +175,9 @@ function abrirVideoLightbox(indice) {
 
 function cerrarVideoLightbox() {
   // detiene el video al cerrar
-  document.getElementById('lightbox-video-iframe').src = '';
+  const player = document.getElementById('lightbox-video-player');
+  player.pause();
+  player.currentTime = 0;
   document.getElementById('lightbox-video').classList.remove('activo');
   document.body.style.overflow = '';
 }
@@ -201,8 +203,11 @@ function actualizarVideoLightbox() {
     wrap.style.height = '540px';  /* 16:9 */
   }
 
-  document.getElementById('lightbox-video-iframe').src =
-    `https://player.vimeo.com/video/${v.id}?autoplay=1`;
+  const player = document.getElementById('lightbox-video-player');
+  player.querySelector('source').src = `assets/videos/${v.archivo}`;
+  player.load();
+  player.play();
+
   document.getElementById('lightbox-video-contador').textContent =
     `${videoIndiceActual + 1} / ${videosData.length}`;
   document.getElementById('lightbox-video-titulo').textContent = v.titulo;

@@ -6,18 +6,11 @@ $whatsapp = "59177657257";
 
 // Thumbnails de Vimeo
 $videos = [
-  ["id" => "1195840788", "titulo" => "Capacitacion mensual", "formato" => "vertical"],
-  ["id" => "1195840789", "titulo" => "Asesores master",      "formato" => "vertical"],
-  ["id" => "1195840790", "titulo" => "Capacitacion",         "formato" => "vertical"],
-  ["id" => "1195840791", "titulo" => "Comunity don edgar",   "formato" => "horizontal"],
+  ["archivo" => "CapacitacionMensualWp.mp4", "titulo" => "Capacitacion mensual", "formato" => "vertical"],
+  ["archivo" => "AsesoresMasterWp.mp4",      "titulo" => "Asesores master",      "formato" => "vertical"],
+  ["archivo" => "CapacitacionWp.mp4",        "titulo" => "Capacitacion",         "formato" => "vertical"],
+  ["archivo" => "ComiunityDonEdgarWp.mp4",   "titulo" => "Comunity don edgar",   "formato" => "horizontal"],
 ];
-
-foreach ($videos as &$v) {
-  $url  = "https://vimeo.com/api/oembed.json?url=https://vimeo.com/{$v['id']}";
-  $data = @json_decode(file_get_contents($url), true);
-  $v['thumb'] = $data['thumbnail_url'] ?? 'assets/video-placeholder.jpg';
-}
-unset($v);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -167,7 +160,7 @@ unset($v);
         <?php foreach ($videos as $i => $v): ?>
           <div class="slide slide-video" onclick="abrirVideoLightbox(<?= $i ?>)">
             <div class="video-thumb-wrap">
-              <img src="<?= $v['thumb'] ?>" alt="<?= $v['titulo'] ?>" class="video-thumb-img">
+              <video src="assets/videos/<?= $v['archivo'] ?>" class="video-thumb-img" preload="metadata" muted></video>
               <div class="video-play-overlay">
                 <div class="video-play-btn">&#9654;</div>
               </div>
@@ -185,12 +178,9 @@ unset($v);
     <button class="lightbox-nav prev" onclick="navVideoLightbox(-1)">&#8249;</button>
     <div class="lightbox-contenido lightbox-video-contenido">
       <div class="video-iframe-wrap">
-        <iframe id="lightbox-video-iframe"
-          src=""
-          frameborder="0"
-          allow="autoplay; fullscreen; picture-in-picture"
-          allowfullscreen>
-        </iframe>
+        <video id="lightbox-video-player" controls autoplay playsinline>
+          <source src="" type="video/mp4">
+        </video>
       </div>
       <div class="lightbox-footer">
         <span id="lightbox-video-contador"></span>
