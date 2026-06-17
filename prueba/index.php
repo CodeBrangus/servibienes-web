@@ -199,7 +199,7 @@ $videos = [
           Servibienes cuenta con un portafolio sólido de proyectos que reflejan calidad, innovación y
           compromiso con el crecimiento urbano de Santa Cruz y Bolivia. Entre nuestros proyectos
           destacados se encuentran: Raizant Blend, Olivos del Norte, Community Alto Norte, Vistara
-          Equipetrol, Palmera Garden, Berchatti Residence Urubó, Auras del Sur y Kerana II.
+          Equipetrol, Palmera Garden y Auras del Sur.
         </p>
       </div>
     </div>
@@ -251,40 +251,6 @@ $videos = [
         <p>Espacios diseñados para recargar energía, compartir y construir comunidad. Ambientes versátiles que se adaptan a distintos estilos de vida y necesidades.</p>
       </div>
     </div>
-
-    <!-- 4. Berchati Home — texto izq, imagen der -->
-    <div class="proyecto-card">
-      <div class="proyecto-info">
-        <div class="proyecto-badge azul">BERCHATI HOME RESIDENT</div>
-        <p>Proyecto residencial con diseño moderno, ubicación estratégica y amenidades de primer nivel. Próximamente más información.</p>
-      </div>
-      <div class="proyecto-media">
-        <div class="proyecto-video-placeholder">
-          <span>▶ Video próximamente</span>
-          <p>Berchati Home Resident</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 5. Kerana — imagen izq, texto der -->
-    <div class="proyecto-card">
-      <div class="proyecto-media">
-        <video controls preload="metadata" class="proyecto-video">
-          <source src="assets/videos/KeranaII.mp4" type="video/mp4">
-          Tu navegador no soporta el elemento de video.
-        </video>
-      </div>
-      <div class="proyecto-info">
-        <div class="proyecto-badge turquesa">KERANA</div>
-        <p>Casas en condominio privado en la Zona Este.</p>
-        <ul class="proyecto-lista">
-          <li>200 viviendas con seguridad 24/7</li>
-          <li>125 m² construidos en 2 plantas sobre 175 m² de terreno</li>
-          <li>3 dormitorios, 3 baños, 2 parqueos y jardín</li>
-          <li>Finos acabados y áreas sociales</li>
-          <li>Compra al contado o con financiamiento (20% inicial)</li>
-        </ul>
-      </div>
 
   </section>
 
