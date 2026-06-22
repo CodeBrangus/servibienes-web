@@ -254,6 +254,33 @@ $videos = [
 
   </section>
 
+  <!-- SERVIBIENES CONSTRUCTORA — BANNER -->
+  <section id="constructora">
+    <img src="assets/constructora.png" alt="Servibienes Constructora" class="hero-img-constructora">
+  </section>
+
+  <!-- SERVIBIENES CONSTRUCTORA — DETALLE -->
+  <section id="constructora-detalle">
+    <div class="proyecto-card">
+      <div class="proyecto-info">
+        <div class="proyecto-badge turquesa">EN SERVIBIENES S.R.L. CONSTRUCTORA</div>
+        <ul class="proyecto-lista">
+          <li>Diseñamos tu proyecto ideal y lo convertimos en realidad.</li>
+          <li>Viviendas modernas</li>
+          <li>Edificios seguros</li>
+          <li>Locales comerciales funcionales</li>
+          <li>Interiores</li>
+          <li>Avalúos y presupuestos</li>
+          <li>Supervisión de obra</li>
+        </ul>
+        <p>SERVIBIENES S.R.L. — Construimos confianza, edificamos futuro.</p>
+      </div>
+      <div class="proyecto-media">
+        <img src="assets/disenoProyecto.png" alt="Diseñamos tu proyecto ideal">
+      </div>
+    </div>
+  </section>
+
   <script>
     const WA_NUMBER = "<?= $whatsapp ?>";
   </script>
