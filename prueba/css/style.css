@@ -17,6 +17,11 @@
   padding: 0;
 }
 
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
 body {
   font-family: 'Montserrat', sans-serif;
   background: var(--gris-bg);
@@ -760,6 +765,16 @@ a {
     justify-content: space-between;
   }
 
+    .proyectos-fondo {
+    min-height: 0;
+    background-size: cover;
+    background-position: center center;
+    padding: 0;
+  }
+
+  .proyectos-contenido {
+    padding: 60px 20px;
+  }
   .nav-mobile-actions {
   display: none;
 }
@@ -1135,7 +1150,8 @@ a {
 @media (max-width: 1024px) {
   #track-lideres .slide:not(.activo),
   #track-asesores .slide:not(.activo),
-  #track-calientes .slide:not(.activo) {
+  #track-calientes .slide:not(.activo),
+  #track-videos .slide:not(.activo) {
     display: none !important;
   }
 }
