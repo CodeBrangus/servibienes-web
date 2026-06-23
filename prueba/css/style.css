@@ -740,3 +740,402 @@ a {
 #constructora-detalle .proyecto-info > p {
   font-size: 1.1rem;
 }
+
+/* ============================================================
+   RESPONSIVE — Mobile first
+   ============================================================ */
+
+/* ---- MOBILE (<768px) ---- */
+@media (max-width: 767px) {
+
+  /* NAVBAR */
+  #navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    padding: 0 16px;
+    height: 64px;
+    justify-content: space-between;
+  }
+
+  .nav-mobile-actions {
+  display: none;
+}
+
+  body {
+    padding-top: 64px;
+  }
+
+  .nav-logo img {
+    height: 52px;
+  }
+
+  .nav-cta {
+    display: none;
+  }
+
+
+  /* Menú mobile — dropdown anclado a la derecha, animado desde el hamburguesa */
+  .nav-links {
+    display: flex;
+    position: fixed;
+    top: 72px;
+    right: 12px;
+    left: auto;
+    width: 200px;
+    background: var(--blanco);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 8px 0 16px;
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0,0,0,.18);
+    z-index: 998;
+    transform-origin: top right;
+    transform: scale(0.85) translateY(-8px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform .22s ease, opacity .18s ease, visibility .22s;
+  }
+
+.nav-links.abierto {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .nav-links li {
+    width: 100%;
+  }
+
+.nav-links a {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 16px 24px;
+    border-radius: 0;
+    color: var(--azul) !important;
+    background: transparent !important;
+    border-left: 4px solid transparent;
+    transition: border-color .2s, background .2s;
+  }
+
+    .nav-links a:hover,
+  .nav-links a.activo {
+    background: #f0f8ff !important;
+    border-left-color: var(--turquesa);
+    color: var(--azul) !important;
+  }
+
+    .nav-links li + li {
+    border-top: 1px solid #eee;
+  }
+
+    .nav-mobile-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+    .nav-wsp-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: #25D366;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: opacity .2s;
+    flex-shrink: 0;
+  }
+
+    .nav-wsp-btn:hover {
+    opacity: .85;
+  }
+
+    .nav-wsp-btn svg {
+    width: 26px;
+    height: 26px;
+    fill: white;
+  }
+
+  /* Botón hamburguesa (se añade con JS) */
+  .nav-hamburger {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background .2s;
+  }
+
+  .nav-hamburger:hover {
+    background: #f0f0f0;
+  }
+
+    .nav-hamburger span {
+    display: block;
+    width: 22px;
+    height: 2.5px;
+    background: var(--azul);
+    border-radius: 2px;
+    transition: transform .3s, opacity .3s;
+    transform-origin: center;
+  }
+
+  .nav-hamburger.abierto span:nth-child(1) {
+    transform: translateY(7.5px) rotate(45deg);
+  }
+  .nav-hamburger.abierto span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .nav-hamburger.abierto span:nth-child(3) {
+    transform: translateY(-7.5px) rotate(-45deg);
+  }
+
+
+  /* MISIÓN / VISIÓN */
+  #nosotros {
+    padding: 40px 20px;
+    gap: 28px;
+  }
+
+  .mv-fila,
+  .mv-fila.derecha {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    text-align: left;
+  }
+
+  .mv-titulo {
+    font-size: 1.6rem;
+    padding: 8px 20px;
+  }
+
+  .mv-texto {
+    font-size: 1.1rem;
+  }
+
+  /* BADGE DEL EQUIPO */
+ .director-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px 0;
+  }
+
+  .equipo-titulo-badge {
+    position: static;
+    display: inline-block;
+    font-size: 1.2rem;
+    padding: 10px 24px;
+    margin-bottom: 16px;
+    left: auto;
+    right: auto;
+    top: auto;
+    order:-1;
+  }
+
+    #lideres, #asesores, #calientes {
+    padding: 40px 0;
+  }
+
+  .carrusel-wrap {
+    padding: 20px 44px;
+  }
+
+  .slide {
+    width: 85%;
+  }
+
+    .slide.activo {
+    transform: scale(1.03);
+  }
+
+  #videos { padding: 40px 0; }
+
+  /* Mostrar solo 1 slide a la vez en mobile */
+  .carrusel-track {
+    justify-content: center;
+  }
+
+  .slide-video.formato-vertical {
+    width: 72%;
+  }
+
+  /* PROYECTOS — hero */
+  .proyectos-titulo {
+    font-size: 2rem;
+    white-space: normal;
+    padding: 10px 18px;
+  }
+
+  .proyectos-texto {
+    font-size: 1rem;
+  }
+
+  /* PROYECTOS — cards */
+  #proyectos-detalle {
+    padding: 40px 16px;
+    gap: 48px;
+  }
+
+  .proyecto-card {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* En mobile el texto va PRIMERO (arriba) siempre */
+  .proyecto-card .proyecto-media {
+    order: 2;
+    flex: unset;
+    width: 100%;
+    margin: 0;
+  }
+
+  .proyecto-card .proyecto-info {
+    order: 1;
+    margin: 0;
+  }
+
+  .proyecto-badge {
+    font-size: 1.4rem;
+    padding: 12px 20px;
+  }
+
+  .proyecto-info p {
+    font-size: 1.05rem;
+  }
+
+  /* CONSTRUCTORA DETALLE */
+  #constructora-detalle {
+    padding: 40px 16px;
+  }
+
+  #constructora-detalle .proyecto-card {
+    flex-direction: column;
+    max-width: 100%;
+  }
+
+  /* CALIENTES badge */
+  .calientes-badge {
+    font-size: 1.5rem;
+    padding: 10px 28px;
+    text-align: center;
+  }
+}
+
+/* ---- TABLET (768px – 1024px) ---- */
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  .proyectos-titulo {
+    font-size: 2.4rem;
+    white-space: normal;
+    padding: 10px 24px;
+  }
+
+  .proyectos-texto {
+    font-size: 1.1rem;
+  }
+
+  .proyectos-contenido {
+    padding: 50px 24px;
+  }
+  #navbar {
+    padding: 0 24px;
+    height: 90px;
+  }
+
+  #constructora-detalle {
+    padding: 50px 40px;
+  }
+
+  #constructora-detalle .proyecto-badge {
+    font-size: 1.05rem;
+    padding: 10px 18px;
+  }
+
+  .nav-logo img {
+    height: 76px;
+  }
+  .equipo-titulo-badge {
+    font-size: 1.3rem;
+    padding: 10px 20px;
+    left: 30%;
+    right: 6%;
+    top: 5%;
+  }
+
+.nav-links {
+    position: static;
+    left: auto;
+    transform: none;
+    flex: 1;
+    justify-content: center;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .nav-links a {
+    font-size: 0.95rem;
+    padding: 6px 10px;
+    white-space: nowrap;
+  }
+
+  .nav-cta {
+    font-size: 1.1rem;
+  }
+
+  /* MISIÓN / VISIÓN */
+  #nosotros {
+    padding: 50px 40px;
+  }
+
+  .mv-fila,
+  .mv-fila.derecha {
+    width: 75%;
+  }
+
+  .mv-texto {
+    font-size: 1.2rem;
+  }
+
+  /* CARRUSELES */
+  .slide {
+    width: 42%;
+  }
+
+  /* PROYECTOS */
+  #proyectos-detalle {
+    padding: 50px 40px;
+  }
+
+  .proyecto-badge {
+    font-size: 1.8rem;
+  }
+
+  .proyecto-info p {
+    font-size: 1.2rem;
+  }
+}
+@media (max-width: 1024px) {
+  #track-lideres .slide:not(.activo),
+  #track-asesores .slide:not(.activo),
+  #track-calientes .slide:not(.activo) {
+    display: none !important;
+  }
+}

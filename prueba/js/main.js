@@ -77,18 +77,18 @@ function actualizarCarruselVideos() {
   const prev = (c.indice - 1 + total) % total;
   const next = (c.indice + 1) % total;
 
-  // oculta todos primero
   slides.forEach(s => {
+    s.classList.remove('activo');
     s.style.display = 'none';
     s.style.order   = '0';
   });
 
-  // muestra solo 3 en orden: prev | activo | next
   slides[prev].style.display  = 'block';
   slides[prev].style.order    = '1';
 
   slides[c.indice].style.display = 'block';
   slides[c.indice].style.order   = '2';
+  slides[c.indice].classList.add('activo');
 
   slides[next].style.display  = 'block';
   slides[next].style.order    = '3';
@@ -212,3 +212,64 @@ function actualizarVideoLightbox() {
     `${videoIndiceActual + 1} / ${videosData.length}`;
   document.getElementById('lightbox-video-titulo').textContent = v.titulo;
 }
+
+// ============================================================
+// NAVBAR MOBILE — Hamburguesa + WSP
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+  const navbar   = document.getElementById('navbar');
+  const navLinks = navbar.querySelector('.nav-links');
+  const waNumber = typeof WA_NUMBER !== 'undefined' ? WA_NUMBER : '59177657257';
+
+  // Crear contenedor de acciones mobile (WSP + hamburguesa)
+  // Se crea siempre en el DOM pero solo es visible en mobile via CSS
+  const actions = document.createElement('div');
+  actions.className = 'nav-mobile-actions';
+
+  // Botón WhatsApp
+  const wspBtn = document.createElement('a');
+  wspBtn.href = `https://wa.me/${waNumber}`;
+  wspBtn.target = '_blank';
+  wspBtn.className = 'nav-wsp-btn';
+  wspBtn.setAttribute('aria-label', 'Contactar por WhatsApp');
+  wspBtn.innerHTML = `
+    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16 2C8.268 2 2 8.268 2 16c0 2.492.68 4.83 1.865 6.83L2 30l7.374-1.835A13.94 13.94 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.5a11.44 11.44 0 01-5.82-1.587l-.418-.247-4.373 1.088 1.12-4.254-.272-.436A11.46 11.46 0 014.5 16C4.5 9.649 9.649 4.5 16 4.5S27.5 9.649 27.5 16 22.351 27.5 16 27.5zm6.29-8.61c-.344-.172-2.04-1.006-2.356-1.12-.316-.115-.546-.172-.776.172-.23.344-.89 1.12-1.09 1.35-.2.23-.4.258-.744.086-.344-.172-1.452-.535-2.766-1.707-1.022-.912-1.712-2.037-1.912-2.381-.2-.344-.021-.53.15-.702.155-.155.344-.4.516-.6.172-.2.23-.344.344-.573.115-.23.058-.43-.029-.602-.086-.172-.776-1.87-1.063-2.56-.28-.672-.564-.581-.776-.592l-.66-.011a1.265 1.265 0 00-.918.43c-.315.344-1.204 1.177-1.204 2.87s1.233 3.329 1.405 3.558c.172.23 2.428 3.707 5.882 5.197.822.355 1.463.567 1.963.726.825.263 1.576.226 2.17.137.662-.099 2.04-.834 2.327-1.638.287-.804.287-1.493.2-1.638-.086-.144-.315-.23-.66-.4z"/>
+    </svg>`;
+
+  // Botón hamburguesa
+  const hamburger = document.createElement('button');
+  hamburger.className = 'nav-hamburger';
+  hamburger.setAttribute('aria-label', 'Abrir menú');
+  hamburger.innerHTML = `<span></span><span></span><span></span>`;
+
+  actions.appendChild(wspBtn);
+  actions.appendChild(hamburger);
+
+  // ✅ Insertar ANTES del nav-cta para no desplazarlo
+  const navCta = navbar.querySelector('.nav-cta');
+  navbar.insertBefore(actions, navCta);
+
+  // Toggle menú
+  hamburger.addEventListener('click', () => {
+    const abierto = navLinks.classList.toggle('abierto');
+    hamburger.classList.toggle('abierto', abierto);
+    hamburger.setAttribute('aria-label', abierto ? 'Cerrar menú' : 'Abrir menú');
+  });
+
+  // Cerrar al hacer clic en un link
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('abierto');
+      hamburger.classList.remove('abierto');
+    });
+  });
+
+  // Cerrar al hacer clic fuera
+  document.addEventListener('click', (e) => {
+    if (!navbar.contains(e.target)) {
+      navLinks.classList.remove('abierto');
+      hamburger.classList.remove('abierto');
+    }
+  });
+});
