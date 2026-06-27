@@ -79,7 +79,7 @@ $videos = [
       <button class="carrusel-btn prev" onclick="moverCarrusel('lideres', -1)">&#8249;</button>
       <div class="carrusel-track" id="track-lideres">
         <?php
-        $lideres = glob("assets/equipo/lideres/*.{png,jpg,webp}", GLOB_BRACE);
+        $lideres = glob("home-nuevo/assets/equipo/lideres/*.{png,jpg,webp}", GLOB_BRACE);
         sort($lideres);
         foreach ($lideres as $foto): ?>
           <div class="slide">
@@ -99,7 +99,7 @@ $videos = [
       <button class="carrusel-btn prev" onclick="moverCarrusel('asesores', -1)">&#8249;</button>
       <div class="carrusel-track" id="track-asesores">
         <?php
-        $asesores = glob("assets/equipo/asesores/*.{png,jpg,webp}", GLOB_BRACE);
+        $asesores = glob("home-nuevo/assets/equipo/asesores/*.{png,jpg,webp}", GLOB_BRACE);
         sort($asesores);
         foreach ($asesores as $foto): ?>
           <div class="slide">
@@ -120,7 +120,7 @@ $videos = [
       <button class="carrusel-btn prev" onclick="moverCarrusel('calientes', -1)">&#8249;</button>
       <div class="carrusel-track" id="track-calientes">
         <?php
-        $calientes = glob("assets/equipo/calientes/*.{png,jpg,webp,jpeg}", GLOB_BRACE);
+        $calientes = glob("home-nuevo/assets/equipo/calientes/*.{png,jpg,webp,jpeg}", GLOB_BRACE);
         sort($calientes);
         foreach ($calientes as $i => $foto): ?>
           <div class="slide" onclick="abrirLightbox('calientes', <?= $i ?>)">
