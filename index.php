@@ -212,7 +212,7 @@ $videos = [
     <div class="proyecto-card">
       <div class="proyecto-media">
         <video controls preload="metadata" class="proyecto-video">
-          <source src="home-nuevo/assets/videos/ComiunityWp.mp4" type="video/mp4">
+          <source src="/home-nuevo/assets/videos/ComiunityWp.mp4" type="video/mp4">
           Tu navegador no soporta el elemento de video.
         </video>
       </div>
@@ -232,7 +232,7 @@ $videos = [
       </div>
       <div class="proyecto-media">
         <video controls preload="metadata" class="proyecto-video">
-          <source src="home-nuevo/assets/videos/RaizantWp.mp4" type="video/mp4">
+          <source src="/home-nuevo/assets/videos/RaizantWp.mp4" type="video/mp4">
           Tu navegador no soporta el elemento de video.
         </video>
       </div>
@@ -242,7 +242,7 @@ $videos = [
     <div class="proyecto-card">
       <div class="proyecto-media">
         <video controls preload="metadata" class="proyecto-video">
-          <source src="home-nuevo/assets/videos/VistaraWp.mp4" type="video/mp4">
+          <source src="/home-nuevo/assets/videos/VistaraWp.mp4" type="video/mp4">
           Tu navegador no soporta el elemento de video.
         </video>
       </div>

@@ -204,7 +204,7 @@ function actualizarVideoLightbox() {
   }
 
   const player = document.getElementById('lightbox-video-player');
-  player.querySelector('source').src = `assets/videos/${v.archivo}`;
+  player.querySelector('source').src = `/home-nuevo/assets/videos/${v.archivo}`;
   player.load();
   player.play();
 
