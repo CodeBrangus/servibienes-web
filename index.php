@@ -21,7 +21,7 @@ $videos = [
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="home-nuevo/css/style.css">
 </head>
 
 <body>
@@ -30,7 +30,7 @@ $videos = [
   <nav id="navbar">
     <!-- Zona 1: Logo -->
     <a href="#inicio" class="nav-logo">
-      <img src="assets/logo.png" alt="Servibienes"
+      <img src="home-nuevo/assets/logo.png" alt="Servibienes"
         onerror="this.outerHTML='<span style=\'font-size:1.4rem;font-weight:900;color:#1B2E6B\'>SB</span>'">
     </a>
 
@@ -50,7 +50,7 @@ $videos = [
 
   <!-- HERO -->
   <section id="inicio">
-    <img src="assets/portada.webp" alt="Tú mereces la casa de tus sueños" class="hero-img">
+    <img src="home-nuevo/assets/portada.webp" alt="Tú mereces la casa de tus sueños" class="hero-img">
   </section>
 
   <!-- MISION / VISION -->
@@ -68,7 +68,7 @@ $videos = [
   <!-- EQUIPO — DON MAURICIO -->
   <section id="equipo">
     <div class="director-wrap">
-      <img src="assets/don-mauricio.png" alt="Lic. Mauricio Cespedes" class="director-img">
+      <img src="home-nuevo/assets/don-mauricio.png" alt="Lic. Mauricio Cespedes" class="director-img">
       <span class="equipo-titulo-badge">CONOCE A NUESTRO EQUIPO</span>
     </div>
   </section>
@@ -159,7 +159,7 @@ $videos = [
         <?php foreach ($videos as $i => $v): ?>
           <div class="slide slide-video formato-<?= $v['formato'] ?>" onclick="abrirVideoLightbox(<?= $i ?>)">
             <div class="video-thumb-wrap">
-              <video src="assets/videos/<?= $v['archivo'] ?>" class="video-thumb-img" preload="metadata" muted></video>
+              <video src="home-nuevo/assets/videos/<?= $v['archivo'] ?>" class="video-thumb-img" preload="metadata" muted></video>
               <div class="video-play-overlay">
                 <div class="video-play-btn">&#9654;</div>
               </div>
@@ -212,7 +212,7 @@ $videos = [
     <div class="proyecto-card">
       <div class="proyecto-media">
         <video controls preload="metadata" class="proyecto-video">
-          <source src="assets/videos/ComiunityWp.mp4" type="video/mp4">
+          <source src="home-nuevo/assets/videos/ComiunityWp.mp4" type="video/mp4">
           Tu navegador no soporta el elemento de video.
         </video>
       </div>
@@ -232,7 +232,7 @@ $videos = [
       </div>
       <div class="proyecto-media">
         <video controls preload="metadata" class="proyecto-video">
-          <source src="assets/videos/RaizantWp.mp4" type="video/mp4">
+          <source src="home-nuevo/assets/videos/RaizantWp.mp4" type="video/mp4">
           Tu navegador no soporta el elemento de video.
         </video>
       </div>
@@ -242,7 +242,7 @@ $videos = [
     <div class="proyecto-card">
       <div class="proyecto-media">
         <video controls preload="metadata" class="proyecto-video">
-          <source src="assets/videos/VistaraWp.mp4" type="video/mp4">
+          <source src="home-nuevo/assets/videos/VistaraWp.mp4" type="video/mp4">
           Tu navegador no soporta el elemento de video.
         </video>
       </div>
@@ -256,7 +256,7 @@ $videos = [
 
   <!-- SERVIBIENES CONSTRUCTORA — BANNER -->
   <section id="constructora">
-    <img src="assets/constructora.png" alt="Servibienes Constructora" class="hero-img-constructora">
+    <img src="home-nuevo/assets/constructora.png" alt="Servibienes Constructora" class="hero-img-constructora">
   </section>
 
   <!-- SERVIBIENES CONSTRUCTORA — DETALLE -->
@@ -276,7 +276,7 @@ $videos = [
         <p>SERVIBIENES S.R.L. — Construimos confianza, edificamos futuro.</p>
       </div>
       <div class="proyecto-media">
-        <img src="assets/disenoProyecto.png" alt="Diseñamos tu proyecto ideal">
+        <img src="home-nuevo/assets/disenoProyecto.png" alt="Diseñamos tu proyecto ideal">
       </div>
     </div>
   </section>
@@ -284,7 +284,7 @@ $videos = [
   <script>
     const WA_NUMBER = "<?= $whatsapp ?>";
   </script>
-  <script src="js/main.js"></script>
+  <script src="home-nuevo/js/main.js"></script>
 
 </body>
 
