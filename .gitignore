@@ -1,4 +1,4 @@
-# Credenciales y configuración sensible
+# Credenciales y configuraci?n sensible
 config.php
 
 # Base de datos
@@ -43,3 +43,4 @@ htaccess
 gitdeploy.php
 
 prueba/assets/videos/
+prueba/assets/equipo/videos/
