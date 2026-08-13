@@ -1,8 +1,19 @@
-# Configuración
 DirectoryIndex index.php propiedades.php inicio.php
 
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteBase /
 # Esto permite que las URLs de tu código sigan funcionando sin interferencia
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+RewriteRule ^([a-z0-9-]+)/?$ asesor.php?slug=$1 [L,QSA]
+
 </IfModule>
+
+# php -- BEGIN cPanel-generated handler, do not edit
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php83 .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit
