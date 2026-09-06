@@ -40,7 +40,7 @@ body.pagina-asesor {
   min-height: 620px;
   padding: 60px 40px;
   overflow: hidden;
-  background: url('../assets/equipo/perfiles/fondo-hero.jpg') center / cover no-repeat;
+  background: url('../assets/diseno/fondo-hero.jpg') center / cover no-repeat;
 }
 
 .asesor-hero-foto {
@@ -395,5 +395,97 @@ body.pagina-asesor {
 
   .wsp-texto {
     display: none;
+  }
+}
+
+/* ============================================================
+   PESTAÑAS DE FILTRO — Inmuebles Calientes
+   Agregar esto en style.css, justo después del bloque
+   "INMUEBLES CALIENTES" (después de .calientes-badge).
+   ============================================================ */
+
+.calientes-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 28px 0 40px;
+  flex-wrap: wrap;
+}
+
+.calientes-tab {
+  background: var(--blanco);
+  color: var(--azul);
+  border: 2px solid var(--azul);
+  font-size: 1.15rem;
+  font-weight: 700;
+  padding: 10px 30px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background .2s, color .2s, border-color .2s;
+}
+
+.calientes-tab:hover {
+  background: #eaf5fa;
+}
+
+.calientes-tab.activo {
+  background: var(--turquesa);
+  border-color: var(--turquesa);
+  color: var(--blanco);
+}
+
+/* El grupo de cada categoría se muestra/oculta por JS (display inline),
+   solo dejamos aquí el ancho completo por si acaso. */
+.calientes-grupo {
+  width: 100%;
+}
+
+/* ---- MOBILE ---- */
+@media (max-width: 767px) {
+  .calientes-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 24px;
+    padding: 0 16px;
+    flex-wrap: unset; /* ya no aplica en grid, pero no molesta dejarlo */
+  }
+
+  .calientes-tab {
+    font-size: .78rem;      /* un poco más chico para que "Anticrético" no se corte */
+    padding: 8px 6px;       /* menos padding lateral, el grid ya reparte el ancho */
+    white-space: nowrap;
+  }
+}
+
+/* ============================================================
+   FIX OBLIGATORIO — reemplazar la regla existente en style.css
+   ============================================================
+   La regla original apuntaba a "#track-calientes", id que ya no
+   existe (ahora son 3 ids distintos, uno por categoría). Sin este
+   reemplazo, en mobile/iPad se verían las 3 fotos del carrusel
+   amontonadas en vez de solo 1 a la vez.
+
+   Busca en style.css este bloque:
+
+     @media (max-width: 1024px) {
+       #track-lideres .slide:not(.activo),
+       #track-asesores .slide:not(.activo),
+       #track-calientes .slide:not(.activo),
+       #track-videos .slide:not(.activo) {
+         display: none !important;
+       }
+     }
+
+   Y reemplázalo por este:
+   ============================================================ */
+@media (max-width: 1024px) {
+  #track-lideres .slide:not(.activo),
+  #track-asesores .slide:not(.activo),
+  #track-calientes-venta .slide:not(.activo),
+  #track-calientes-anticretico .slide:not(.activo),
+  #track-calientes-alquiler .slide:not(.activo),
+  #track-videos .slide:not(.activo) {
+    display: none !important;
   }
 }

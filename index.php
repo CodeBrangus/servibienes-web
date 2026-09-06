@@ -4,12 +4,41 @@
 // ============================================================
 $whatsapp = "59177657257";
 
+// Categoría que se muestra por defecto al cargar la página.
+// Cambiar aquí si el cliente pide otra por defecto: 'venta' | 'anticretico' | 'alquiler'
+$categoriaDefaultCalientes = 'venta';
+
 $videos = [
   ["archivo" => "CapacitacionMensualWp.mp4", "titulo" => "Capacitacion mensual", "formato" => "vertical"],
   ["archivo" => "AsesoresMasterWp.mp4",      "titulo" => "Asesores master",      "formato" => "vertical"],
   ["archivo" => "CapacitacionWp.mp4",        "titulo" => "Capacitacion",         "formato" => "vertical"],
   ["archivo" => "ComiunityDonEdgarWp.mp4",   "titulo" => "Comunity don edgar",   "formato" => "horizontal"],
 ];
+
+// ------------------------------------------------------------
+// Inmuebles calientes: se leen 3 subcarpetas fijas.
+// Cada carpeta se actualiza subiendo/borrando archivos ahí,
+// no hay nada que tocar en código.
+// ------------------------------------------------------------
+$categoriasCalientes = [
+  'venta'       => 'Venta',
+  'anticretico' => 'Anticrético',
+  'alquiler'    => 'Alquiler',
+];
+
+$calientesPorCategoria = [];
+foreach ($categoriasCalientes as $slug => $label) {
+  $fotos = glob("home-nuevo/assets/equipo/calientes/$slug/*.{png,jpg,webp,jpeg}", GLOB_BRACE);
+  sort($fotos);
+  if (!empty($fotos)) {
+    $calientesPorCategoria[$slug] = $fotos;
+  }
+}
+
+// Si la categoría por defecto no tiene fotos todavía, usar la primera que sí tenga.
+$categoriaActivaCalientes = array_key_exists($categoriaDefaultCalientes, $calientesPorCategoria)
+  ? $categoriaDefaultCalientes
+  : (array_key_first($calientesPorCategoria) ?? null);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -116,23 +145,44 @@ $videos = [
     <div class="calientes-header">
       <span class="calientes-badge">INMUEBLES CALIENTES</span>
     </div>
-    <div class="carrusel-wrap">
-      <button class="carrusel-btn prev" onclick="moverCarrusel('calientes', -1)">&#8249;</button>
-      <div class="carrusel-track" id="track-calientes">
-        <?php
-        $calientes = glob("home-nuevo/assets/equipo/calientes/*.{png,jpg,webp,jpeg}", GLOB_BRACE);
-        sort($calientes);
-        foreach ($calientes as $i => $foto): ?>
-          <div class="slide" onclick="abrirLightbox('calientes', <?= $i ?>)">
-            <img src="<?= $foto ?>" alt="Inmueble">
-            <div class="slide-overlay">
-              <span>Ver detalle</span>
-            </div>
-          </div>
+
+    <?php if (!empty($calientesPorCategoria)): ?>
+      <!-- Pestañas de filtro: solo se muestran las categorías que tienen fotos -->
+      <div class="calientes-tabs">
+        <?php foreach ($calientesPorCategoria as $slug => $fotos): ?>
+          <button
+            class="calientes-tab<?= $slug === $categoriaActivaCalientes ? ' activo' : '' ?>"
+            data-categoria="<?= $slug ?>"
+            onclick="cambiarCategoriaCalientes('<?= $slug ?>')">
+            <?= htmlspecialchars($categoriasCalientes[$slug]) ?>
+          </button>
         <?php endforeach; ?>
       </div>
-      <button class="carrusel-btn next" onclick="moverCarrusel('calientes', 1)">&#8250;</button>
-    </div>
+
+      <?php foreach ($calientesPorCategoria as $slug => $fotos): ?>
+        <div
+          class="calientes-grupo"
+          id="grupo-calientes-<?= $slug ?>"
+          style="display: <?= $slug === $categoriaActivaCalientes ? 'block' : 'none' ?>;">
+          <div class="carrusel-wrap">
+            <button class="carrusel-btn prev" onclick="moverCarrusel('calientes-<?= $slug ?>', -1)">&#8249;</button>
+            <div class="carrusel-track" id="track-calientes-<?= $slug ?>">
+              <?php foreach ($fotos as $i => $foto): ?>
+                <div class="slide" onclick="abrirLightbox('calientes-<?= $slug ?>', <?= $i ?>)">
+                  <img src="<?= $foto ?>" alt="Inmueble en <?= htmlspecialchars($categoriasCalientes[$slug]) ?>">
+                  <div class="slide-overlay">
+                    <span>Ver detalle</span>
+                  </div>
+                </div>
+              <?php endforeach; ?>
+            </div>
+            <button class="carrusel-btn next" onclick="moverCarrusel('calientes-<?= $slug ?>', 1)">&#8250;</button>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    <?php else: ?>
+      <p style="text-align:center; color:#888; padding: 40px;">Aún no hay inmuebles cargados.</p>
+    <?php endif; ?>
   </section>
 
   <!-- LIGHTBOX INMUEBLES -->

@@ -336,13 +336,17 @@ a {
   display: inline-block;
 }
 
-/* overlay hover en slide de calientes */
-#track-calientes .slide {
+/* overlay hover en slides de calientes (venta / anticretico / alquiler) */
+#track-calientes-venta .slide,
+#track-calientes-anticretico .slide,
+#track-calientes-alquiler .slide {
   position: relative;
   cursor: pointer;
 }
 
-#track-calientes .slide-overlay {
+#track-calientes-venta .slide-overlay,
+#track-calientes-anticretico .slide-overlay,
+#track-calientes-alquiler .slide-overlay {
   position: absolute;
   inset: 0;
   background: rgba(0, 196, 204, 0);
@@ -353,7 +357,9 @@ a {
   transition: background .3s;
 }
 
-#track-calientes .slide-overlay span {
+#track-calientes-venta .slide-overlay span,
+#track-calientes-anticretico .slide-overlay span,
+#track-calientes-alquiler .slide-overlay span {
   color: var(--blanco);
   font-weight: 800;
   font-size: 1rem;
@@ -361,12 +367,53 @@ a {
   transition: opacity .3s;
 }
 
-#track-calientes .slide:hover .slide-overlay {
+#track-calientes-venta .slide:hover .slide-overlay,
+#track-calientes-anticretico .slide:hover .slide-overlay,
+#track-calientes-alquiler .slide:hover .slide-overlay {
   background: rgba(0, 196, 204, .45);
 }
 
-#track-calientes .slide:hover .slide-overlay span {
+#track-calientes-venta .slide:hover .slide-overlay span,
+#track-calientes-anticretico .slide:hover .slide-overlay span,
+#track-calientes-alquiler .slide:hover .slide-overlay span {
   opacity: 1;
+}
+
+/* ============================================================
+   PESTAÑAS DE FILTRO — Inmuebles Calientes
+   ============================================================ */
+.calientes-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 0 0 40px;
+  flex-wrap: wrap;
+}
+
+.calientes-tab {
+  background: var(--blanco);
+  color: var(--azul);
+  border: 2px solid var(--azul);
+  font-size: 1.15rem;
+  font-weight: 700;
+  padding: 10px 30px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background .2s, color .2s, border-color .2s;
+}
+
+.calientes-tab:hover {
+  background: #eaf5fa;
+}
+
+.calientes-tab.activo {
+  background: var(--turquesa);
+  border-color: var(--turquesa);
+  color: var(--blanco);
+}
+
+.calientes-grupo {
+  width: 100%;
 }
 
 /* ============================================================
@@ -1052,6 +1099,17 @@ a {
     padding: 10px 28px;
     text-align: center;
   }
+
+  .calientes-tabs {
+    gap: 10px;
+    margin-bottom: 24px;
+    padding: 0 16px;
+  }
+
+  .calientes-tab {
+    font-size: .95rem;
+    padding: 8px 20px;
+  }
 }
 
 /* ---- TABLET (768px – 1024px) ---- */
@@ -1150,7 +1208,9 @@ a {
 @media (max-width: 1024px) {
   #track-lideres .slide:not(.activo),
   #track-asesores .slide:not(.activo),
-  #track-calientes .slide:not(.activo),
+  #track-calientes-venta .slide:not(.activo),
+  #track-calientes-anticretico .slide:not(.activo),
+  #track-calientes-alquiler .slide:not(.activo),
   #track-videos .slide:not(.activo) {
     display: none !important;
   }

@@ -2,7 +2,7 @@ DirectoryIndex index.php propiedades.php inicio.php
 
 <IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteBase /
+RewriteBase /servi/
 # Esto permite que las URLs de tu código sigan funcionando sin interferencia
 
 RewriteCond %{REQUEST_FILENAME} -f [OR]

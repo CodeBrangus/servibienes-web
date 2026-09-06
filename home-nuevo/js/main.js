@@ -4,8 +4,10 @@
 const carruseles = {
   lideres:  { indice: 0, timer: null },
   asesores: { indice: 0, timer: null },
-  calientes: { indice: 0, timer: null },
   videos:    { indice: 0, timer: null }
+  // los carruseles de "calientes-*" (venta / anticretico / alquiler)
+  // se agregan dinámicamente más abajo, según qué categorías
+  // existan en el HTML de cada página.
 };
 
 function getSlides(id) {
@@ -13,6 +15,10 @@ function getSlides(id) {
 }
 
 function actualizarCarrusel(id) {
+  if (!carruseles[id]) {
+    console.warn(`actualizarCarrusel: no existe carrusel registrado para "${id}"`);
+    return;
+  }
   const slides  = getSlides(id);
   const total   = slides.length;
   if (total === 0) return;
@@ -35,6 +41,10 @@ function actualizarCarrusel(id) {
 }
 
 function moverCarrusel(id, direccion) {
+  if (!carruseles[id]) {
+    console.warn(`moverCarrusel: no existe carrusel registrado para "${id}"`);
+    return;
+  }
   const slides = getSlides(id);
   const total  = slides.length;
   if (total === 0) return;
@@ -48,24 +58,100 @@ function moverCarrusel(id, direccion) {
 }
 
 function iniciarAuto(id) {
+  if (!carruseles[id]) {
+    console.warn(`iniciarAuto: no existe carrusel registrado para "${id}"`);
+    return;
+  }
   carruseles[id].timer = setInterval(() => {
     moverCarrusel(id, 1);
   }, 4000);
 }
 
+// ============================================================
+// INMUEBLES CALIENTES — categorías con pestañas de filtro
+// ============================================================
+const CATEGORIAS_CALIENTES = ['venta', 'anticretico', 'alquiler'];
+
+// categoría actualmente visible (se detecta al cargar según qué
+// pestaña vino marcada como "activo" desde PHP)
+let categoriaActivaCalientes = null;
+
+function inicializarCalientes() {
+  const tabActivo = document.querySelector('.calientes-tab.activo');
+  if (!tabActivo) return; // esta página no tiene sección de calientes con pestañas
+
+  categoriaActivaCalientes = tabActivo.dataset.categoria;
+
+  // registra en `carruseles` solo las categorías que existen en el DOM
+  CATEGORIAS_CALIENTES.forEach(cat => {
+    const id = 'calientes-' + cat;
+    if (document.getElementById(`track-${id}`)) {
+      carruseles[id] = { indice: 0, timer: null };
+    }
+  });
+
+  // solo se inicializa y auto-mueve la categoría visible al cargar;
+  // las otras quedan en pausa hasta que el usuario cambie de pestaña
+  const idActivo = 'calientes-' + categoriaActivaCalientes;
+  if (carruseles[idActivo]) {
+    actualizarCarrusel(idActivo);
+    iniciarAuto(idActivo);
+  }
+}
+
+function cambiarCategoriaCalientes(categoria) {
+  if (categoria === categoriaActivaCalientes) return;
+
+  const idAnterior = 'calientes-' + categoriaActivaCalientes;
+  if (carruseles[idAnterior]) {
+    clearInterval(carruseles[idAnterior].timer);
+  }
+
+  // oculta todos los grupos y quita el estado activo de las pestañas
+  document.querySelectorAll('.calientes-grupo').forEach(g => {
+    g.style.display = 'none';
+  });
+  document.querySelectorAll('.calientes-tab').forEach(t => {
+    t.classList.remove('activo');
+  });
+
+  const grupoNuevo = document.getElementById('grupo-calientes-' + categoria);
+  const tabNueva    = document.querySelector(`.calientes-tab[data-categoria="${categoria}"]`);
+  if (!grupoNuevo || !tabNueva) return;
+
+  grupoNuevo.style.display = 'block';
+  tabNueva.classList.add('activo');
+  categoriaActivaCalientes = categoria;
+
+  const idNuevo = 'calientes-' + categoria;
+  if (carruseles[idNuevo]) {
+    actualizarCarrusel(idNuevo);
+    iniciarAuto(idNuevo);
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   // con auto-movimiento
-  ['lideres', 'asesores', 'calientes'].forEach(id => {
+  ['lideres', 'asesores'].forEach(id => {
     actualizarCarrusel(id);
     iniciarAuto(id);
   });
 
+  // inmuebles calientes (con pestañas de filtro)
+  inicializarCalientes();
+
   // videos — sin auto, con loop
   actualizarCarruselVideos();
 
-  // lightbox calientes
-  const slides = document.querySelectorAll('#track-calientes .slide img');
-  lightboxData.calientes.imagenes = Array.from(slides).map(img => img.src);
+  // lightbox: recolecta las imágenes de cada categoría de calientes que exista en la página
+  lightboxData = {};
+  CATEGORIAS_CALIENTES.forEach(cat => {
+    const id = 'calientes-' + cat;
+    const imgs = document.querySelectorAll(`#track-${id} .slide img`);
+    if (imgs.length) {
+      lightboxData[id] = { imagenes: Array.from(imgs).map(img => img.src), indice: 0 };
+    }
+  });
 });
 
 function actualizarCarruselVideos() {
@@ -105,15 +191,20 @@ function moverCarruselVideos(dir) {
 // ============================================================
 // LIGHTBOX — Inmuebles Calientes
 // ============================================================
-const lightboxData = {
-  calientes: { imagenes: [], indice: 0 }
-};
+// lightboxData se llena en DOMContentLoaded con una entrada por
+// categoría existente: { 'calientes-venta': {...}, 'calientes-anticretico': {...}, ... }
+let lightboxData = {};
 
-// recolecta las imágenes del carrusel al cargar
+// grupo actualmente abierto en el lightbox (para saber a qué
+// categoría pertenecen las flechas prev/next y el teclado)
+let lightboxGrupoActivo = null;
 
 function abrirLightbox(grupo, indice) {
-  const data     = lightboxData[grupo];
-  data.indice    = indice;
+  const data = lightboxData[grupo];
+  if (!data) return;
+
+  lightboxGrupoActivo = grupo;
+  data.indice = indice;
   actualizarLightbox(grupo);
   document.getElementById('lightbox').classList.add('activo');
   document.body.style.overflow = 'hidden';
@@ -129,10 +220,11 @@ function cerrarLightboxFondo(e) {
 }
 
 function navLightbox(dir) {
-  const data  = lightboxData.calientes;
+  if (!lightboxGrupoActivo) return;
+  const data  = lightboxData[lightboxGrupoActivo];
   const total = data.imagenes.length;
   data.indice = (data.indice + dir + total) % total;
-  actualizarLightbox('calientes');
+  actualizarLightbox(lightboxGrupoActivo);
 }
 
 function actualizarLightbox(grupo) {
