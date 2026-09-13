@@ -316,8 +316,18 @@ $categoriaActivaCalientes = array_key_exists($categoriaDefaultCalientes, $calien
   </div>
   </section>
 
-  <!-- REVISTA DIGITAL — espacio reservado, contenido y lógica pendientes -->
-  <section id="revista-digital"></section>
+  <!-- REVISTA DIGITAL -->
+  <section id="revista-digital">
+    <div class="revista-digital-wrap">
+      <iframe
+        id="revista-digital-iframe"
+        src="https://heyzine.com/flip-book/7bbaeb801b.html"
+        class="revista-digital-iframe"
+        loading="lazy"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </section>
 
   <!-- SERVIBIENES CONSTRUCTORA — DETALLE (movido al final de la página) -->
   <section id="constructora-detalle">

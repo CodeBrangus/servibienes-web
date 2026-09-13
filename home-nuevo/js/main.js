@@ -365,3 +365,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+// ---- Revista digital: mostrar solo si el iframe carga ----
+(function () {
+  var seccion = document.getElementById('revista-digital');
+  var iframe  = document.getElementById('revista-digital-iframe');
+  if (!seccion || !iframe) return;
+
+  var resuelto = false;
+
+  var timeoutId = setTimeout(function () {
+    if (!resuelto) {
+      resuelto = true;
+      seccion.remove(); // no cargó a tiempo: se omite el espacio
+    }
+  }, 8000); // ajusta el tiempo de espera si lo ves muy corto/largo
+
+  iframe.addEventListener('load', function () {
+    if (resuelto) return;
+    resuelto = true;
+    clearTimeout(timeoutId);
+    seccion.classList.add('visible');
+  });
+
+  iframe.addEventListener('error', function () {
+    if (resuelto) return;
+    resuelto = true;
+    clearTimeout(timeoutId);
+    seccion.remove();
+  });
+})();
