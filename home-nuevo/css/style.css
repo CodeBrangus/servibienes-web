@@ -144,15 +144,15 @@ a {
 }
 
 .mv-fila {
-  width: 60%;               /* ocupa la mitad */
-  margin-right: auto;       /* empuja a la izquierda ← MISIÓN */
+  width: 60%;
+  margin-right: auto;
 }
 
 .mv-fila.derecha {
   width: 60%;
-  margin-left: auto;        /* empuja a la derecha → VISIÓN */
-  text-align: right; 
-  margin-right: 0px;       /* o justify si prefieres */
+  margin-left: auto;
+  text-align: right;
+  margin-right: 0px;
 }
 
 .mv-titulo {
@@ -794,6 +794,209 @@ a {
 }
 
 /* ============================================================
+   CATÁLOGO DE SERVICIOS (grid en la home)
+   ============================================================ */
+#servicios {
+  background: var(--blanco);
+  padding: 100px 80px;
+}
+
+.servicios-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 32px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.servicios-header-logo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.servicios-header-texto {
+  display: flex;
+  flex-direction: column;
+}
+
+.servicios-header-titulo {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--azul);
+  letter-spacing: .3px;
+}
+
+.servicios-header-subtitulo {
+  font-size: .85rem;
+  font-weight: 600;
+  color: #8aa0c4;
+}
+
+.servicios-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);   /* desktop: 4 columnas */
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.servicio-card {
+  background: #eaf9fa;
+  border-radius: 16px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  transition: transform .2s, box-shadow .2s;
+  border: 1px solid rgba(0,196,204,.25);
+  box-shadow: 0 2px 6px rgba(0,43,125,.06);
+}
+
+.servicio-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.1);
+}
+
+.servicio-card-icono {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+}
+
+.servicio-card-icono-wrap {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.servicio-card-icono {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+.servicio-card-titulo {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--azul);
+  line-height: 1.25;
+}
+
+.servicio-card-descripcion {
+  font-size: .9rem;
+  font-weight: 600;
+  color: #4a6aa5;
+  line-height: 1.35;
+}
+
+/* ============================================================
+   REVISTA DIGITAL — espacio reservado (sin lógica todavía)
+   ============================================================ */
+#revista-digital {
+  background: var(--blanco);
+  min-height: 200px;
+}
+
+/* ============================================================
+   PÁGINA DE DETALLE DE SERVICIO (servicio.php)
+   ============================================================ */
+.servicio-detalle {
+  background: var(--blanco);
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 60px 24px 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+}
+
+.servicio-detalle-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.servicio-detalle-icono {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+}
+
+.servicio-detalle-titulo {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--azul);
+}
+
+.servicio-detalle-descripcion {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #4a6aa5;
+  max-width: 520px;
+}
+
+.servicio-wa-btn {
+  background: #25D366;
+  color: var(--blanco);
+  font-weight: 800;
+  font-size: 1rem;
+  padding: 12px 32px;
+  border-radius: 50px;
+  transition: opacity .2s;
+  display: inline-block;
+}
+
+.servicio-wa-btn:hover { opacity: .85; }
+
+.servicio-galeria {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.servicio-galeria-img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  display: block;
+}
+
+.servicio-sin-contenido {
+  color: #888;
+  font-size: 1rem;
+  padding: 40px 0;
+}
+
+.servicio-404 {
+  min-height: 40vh;
+  justify-content: center;
+}
+
+.servicio-404-texto {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--azul);
+}
+
+.servicio-volver {
+  background: var(--turquesa);
+  color: var(--blanco);
+  font-weight: 700;
+  padding: 10px 28px;
+  border-radius: 50px;
+}
+
+/* ============================================================
    RESPONSIVE — Mobile first
    ============================================================ */
 
@@ -1110,6 +1313,75 @@ a {
     font-size: .95rem;
     padding: 8px 20px;
   }
+
+  /* CATÁLOGO DE SERVICIOS — 2 columnas en mobile (confirmado) */
+  #servicios {
+    padding: 40px 16px;
+  }
+
+  .servicios-header {
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.servicios-header-logo {
+  width: 32px;
+  height: 32px;
+}
+
+.servicios-header-titulo {
+  font-size: 1.05rem;
+}
+
+.servicios-header-subtitulo {
+  font-size: .72rem;
+}
+
+.servicio-card-icono-wrap {
+  width: 40px;
+  height: 40px;
+}
+
+.servicio-card-icono {
+  width: 20px;
+  height: 20px;
+}
+
+  .servicios-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .servicio-card {
+    padding: 16px 12px;
+    gap: 6px;
+  }
+
+  .servicio-card-icono {
+    width: 34px;
+    height: 34px;
+  }
+
+  .servicio-card-titulo {
+    font-size: .88rem;
+  }
+
+  .servicio-card-descripcion {
+    font-size: .75rem;
+  }
+
+  /* PÁGINA DE DETALLE DE SERVICIO */
+  .servicio-detalle {
+    padding: 40px 16px 60px;
+  }
+
+  .servicio-detalle-titulo {
+    font-size: 1.4rem;
+  }
+
+  .servicio-detalle-descripcion {
+    font-size: 1rem;
+  }
 }
 
 /* ---- TABLET (768px – 1024px) ---- */
@@ -1203,6 +1475,15 @@ a {
 
   .proyecto-info p {
     font-size: 1.2rem;
+  }
+
+  /* CATÁLOGO DE SERVICIOS */
+  #servicios {
+    padding: 60px 32px;
+  }
+
+  .servicios-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 @media (max-width: 1024px) {

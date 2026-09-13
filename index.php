@@ -2,7 +2,8 @@
 // ============================================================
 // Servibienes — Página de prueba
 // ============================================================
-$whatsapp = "59177657257";
+$whatsapp  = "59177657257";
+$servicios = require 'includes/servicios.php';
 
 // Categoría que se muestra por defecto al cargar la página.
 // Cambiar aquí si el cliente pide otra por defecto: 'venta' | 'anticretico' | 'alquiler'
@@ -55,27 +56,7 @@ $categoriaActivaCalientes = array_key_exists($categoriaDefaultCalientes, $calien
 
 <body>
 
-  <!-- NAVBAR -->
-  <nav id="navbar">
-    <!-- Zona 1: Logo -->
-    <a href="#inicio" class="nav-logo">
-      <img src="home-nuevo/assets/logo.png" alt="Servibienes"
-        onerror="this.outerHTML='<span style=\'font-size:1.4rem;font-weight:900;color:#1B2E6B\'>SB</span>'">
-    </a>
-
-    <!-- Zona 2: Links centrados -->
-    <ul class="nav-links">
-      <li><a href="#inicio" class="activo">Inicio</a></li>
-      <li><a href="#proyectos" class="normal">Proyectos</a></li>
-      <li><a href="#contactos" class="activo">Contactos</a></li>
-      <li><a href="#nosotros" class="normal">Nosotros</a></li>
-    </ul>
-
-    <!-- Zona 3: CTA separado -->
-    <a href="https://wa.me/<?= $whatsapp ?>" target="_blank" class="nav-cta">
-      Contactar<br>con ventas
-    </a>
-  </nav>
+  <?php include 'includes/navbar.php'; ?>
 
   <!-- HERO -->
   <section id="inicio">
@@ -309,7 +290,36 @@ $categoriaActivaCalientes = array_key_exists($categoriaDefaultCalientes, $calien
     <img src="home-nuevo/assets/constructora.png" alt="Servibienes Constructora" class="hero-img-constructora">
   </section>
 
-  <!-- SERVIBIENES CONSTRUCTORA — DETALLE -->
+  <!-- CATÁLOGO DE SERVICIOS -->
+  <div class="servicios-header">
+    <img src="home-nuevo/assets/logo.png" alt="Servibienes" class="servicios-header-logo"
+      onerror="this.style.display='none'">
+    <div class="servicios-header-texto">
+      <h2 class="servicios-header-titulo">CATÁLOGO DE SERVICIOS</h2>
+      <p class="servicios-header-subtitulo">Servibienes Constructora S.R.L.</p>
+    </div>
+  </div>
+  <div class="servicios-grid">
+    <?php foreach ($servicios as $slug => $s): ?>
+      <a href="servicio.php?s=<?= $slug ?>" class="servicio-card">
+        <span class="servicio-card-icono-wrap">
+          <img
+            src="home-nuevo/assets/servicios/<?= $slug ?>/icono.png"
+            alt="<?= htmlspecialchars($s['titulo']) ?>"
+            class="servicio-card-icono"
+            onerror="this.src='home-nuevo/assets/servicios/_generico.png'">
+        </span>
+        <span class="servicio-card-titulo"><?= htmlspecialchars($s['titulo']) ?></span>
+        <span class="servicio-card-descripcion"><?= htmlspecialchars($s['descripcion']) ?></span>
+      </a>
+    <?php endforeach; ?>
+  </div>
+  </section>
+
+  <!-- REVISTA DIGITAL — espacio reservado, contenido y lógica pendientes -->
+  <section id="revista-digital"></section>
+
+  <!-- SERVIBIENES CONSTRUCTORA — DETALLE (movido al final de la página) -->
   <section id="constructora-detalle">
     <div class="proyecto-card">
       <div class="proyecto-info">
